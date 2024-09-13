@@ -3,6 +3,7 @@ import shutil
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
 from analysis_creator import create_results  # Assuming this is defined in your code.
+from hashlib import sha256
 
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = {'zip'}
@@ -31,6 +32,8 @@ def upload_file():
         file = request.files['file']
 
         passw = request.form['pw']
+
+        passw = sha256(passw.encode('utf-8')).hexdigest()
         
         numid = request.form['id']
 
@@ -45,7 +48,7 @@ def upload_file():
             return redirect(url_for('upload_file', name="wrong_file_type"))
 
         # Save the file
-        if file and allowed_file(file.filename) and passw == '3471':
+        if file and allowed_file(file.filename) and passw == 'f3e055913a0b1eb0f07317896f9a1bc466b9a50db85a7f882f3ffde9ffb23aca':
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
