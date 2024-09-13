@@ -4,6 +4,7 @@ import pandas as pd
 import shutil
 from main import analysis
 
+
 def create_results(numid):
 
     #create results folder
@@ -13,13 +14,13 @@ def create_results(numid):
         shutil.rmtree('uploads/result')
         os.makedirs('uploads/result')
 
-    with zipfile.ZipFile('uploads/export.zip') as myzip:
-        myzip.extractall('uploads/export')
-        filename=os.listdir('uploads/export/apple_health_export/electrocardiograms')
-
-    df = pd.read_csv('uploads/export/apple_health_export/electrocardiograms/'+filename[-1])
-
     filepath = 'uploads/export/apple_health_export/electrocardiograms'
+
+    with zipfile.ZipFile('uploads/export.zip', 'r') as f:
+        files = [n for n in f.namelist() if n.startswith('apple_health_export/electrocardiograms/') and not n.endswith('/')]
+        f.extractall(path='uploads/export/' , members=files)
+
+    filename=os.listdir(filepath)
 
     index = (-1-int(numid))
 

@@ -16,6 +16,7 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    
     if request.method == 'POST':
         # Recreate 'uploads' directory if it exists, else create it
         if os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -55,9 +56,9 @@ def upload_file():
             return redirect(url_for('show_results'))
 
     # Recreate 'uploads' directory if it exists, else create it
-        if os.path.exists(app.config['UPLOAD_FOLDER']):
-            shutil.rmtree(app.config['UPLOAD_FOLDER'])
-        os.makedirs(app.config['UPLOAD_FOLDER'])
+    if os.path.exists(app.config['UPLOAD_FOLDER']):
+        shutil.rmtree(app.config['UPLOAD_FOLDER'])
+    os.makedirs(app.config['UPLOAD_FOLDER'])
 
     # HTML form for uploading a file
     return render_template('landing.html')
