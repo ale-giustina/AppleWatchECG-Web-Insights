@@ -1,3 +1,5 @@
+original project [AppleWatchECG-Insights](https://github.com/ale-giustina/AppleWatchECG-Insights)
+
 ## SCREENSHOTS
 
 ![Screenshot](static/1.png)
